@@ -1,0 +1,410 @@
+
+/* === RESET ALL SETTINGS === */
+
+html, body, button, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, input, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, textarea, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, hr, menu, nav, section, summary, textarea,
+time, mark, audio, video, select {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+
+  /*-webkit-backface-visibility: hidden;
+  -webkit-backface-visibility: visible;*/
+}
+
+ul {
+  list-style: disc;
+  list-style-position: inside;
+  margin-bottom: 28px;
+}
+
+ol { 
+  list-style-position: inside;
+  margin-bottom: 28px;
+}
+
+ul ul, 
+ol ol,
+ol ul,
+ul ol {
+  margin-left: 30px;
+  margin-bottom: 0px;
+}
+
+
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  text-decoration: underline;
+  outline: none;
+}
+
+a, input, button, strong {
+  -webkit-transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  -moz-transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  -o-transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+
+  outline: none;
+}
+
+input, button {
+  border-radius: 2px;
+}
+
+input:focus, button:focus {
+  outline: none !important;
+}
+
+a:link, a:visited {
+  outline: none;
+}
+
+address {
+  margin-bottom: 28px;
+}
+
+acronym, abbr {
+  font-weight: bold;
+  font-style: italic;
+}
+
+code {
+  margin-left: 3px;
+}
+
+pre {
+  padding: 14px 20px;
+  border: 1px solid #ededed;
+  background-color: #f8f8f8;
+  color: #666666;
+  margin-bottom: 28px;
+  overflow: auto;
+}
+
+sup {
+  display: inline-block;
+  font-size: xx-small;
+  vertical-align: top;
+  margin-top: -5px;
+}
+
+sub {
+  display: inline-block;
+  font-size: xx-small;
+  vertical-align: bottom;
+  margin-bottom: -5px;
+}
+
+img, iframe, embed {
+  max-width: 100%;
+  /*height: auto;*/
+}
+
+img {
+  height: auto;
+}
+
+q {
+  font-style: italic;
+}
+
+strong {
+  font-weight: 700;
+}
+
+p {
+  margin-bottom: 28px;
+}
+
+
+
+
+input, textarea, select {
+  padding: 12px 18px;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 2px;
+}
+
+input[type="button"], input[type="submit"], input[type="text"], textarea {
+  -webkit-appearance: none;
+}
+
+input[type="range"] {
+  border: none;
+  padding: 12px 0;
+}
+
+button, .button, input[type="submit"], input[type="button"] {
+  padding: 14px 18px;
+  border: none;
+
+  border-radius: 2px;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+
+
+/* Typography */
+
+body, input, textarea, button, .button {
+  font-size: 16px;
+  line-height: 28px;
+}
+
+h1 {
+  font-size: 56px;
+  line-height: 56px;
+  letter-spacing: -3px;
+  word-spacing: 3px;
+  font-weight: 300;
+  padding-bottom: 28px;
+}
+
+h2 {
+  font-size: 42px;
+  line-height: 56px;
+  letter-spacing: -2px;
+  word-spacing: 3px;
+  font-weight: 400;
+
+  padding: 14px 0;
+}
+
+h3 {
+  font-size: 30px;
+  line-height: 42px;
+  letter-spacing: -2px;
+  word-spacing: 3px;
+  font-weight: 400;
+  padding: 7px 0;
+}
+
+h4 {
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -1px;
+  word-spacing: 2px;
+  font-weight: 400;
+  padding: 14px 0;
+}
+
+h5 {
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -1px;
+  word-spacing: 1px;
+  font-weight: 600;
+
+  padding: 14px 0;
+}
+
+h6 {
+  font-size: 14px;
+  line-height: 28px;
+  letter-spacing: -1px;
+  word-spacing: 1px;
+  font-weight: 700;
+}
+
+.not-mobile h1, .not-mobile h2, .not-mobile h3,
+.not-mobile h4 {
+  -webkit-text-stroke: 0.1px
+}
+
+blockquote {
+  display: inline-block;
+  padding-left: 28px;
+  border-left: 2px solid transparent;
+
+  margin-bottom: 28px;
+
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+blockquote p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+cite {
+  font-style: italic;
+  font-weight: bold;
+}
+
+iframe, embed {
+  display: block;
+}
+
+hr {
+  height: 1px;
+  width: 100%;
+}
+
+/* table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 28px;
+}
+
+thead tr:first-child th {
+  border-bottom: 2px solid #42d18c;
+}
+
+table tr th {
+  padding: 0 7px;
+}
+
+.single table tr th {
+  padding: 14px;
+}
+
+table tr {
+  text-align: left;
+}
+
+table tr td,
+table tr th {
+  padding: 0 7px;
+  border-bottom: 1px solid #ededed;
+}
+
+.single table tr td,
+.single table tr th {
+  padding: 14px;
+}
+
+/* dl */
+dl {
+  overflow: hidden;
+}
+
+dl dt {
+  display: inline-block;
+  float: left;
+  clear: left;
+
+  margin-right: 4px;
+}
+
+dl dd {
+  display: inline-block;
+  font-weight: bold;
+
+  float: left;
+  clear: right;
+}
+
+
+
+/* buttons */
+
+.button, .button-primary {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 2px;
+
+  text-decoration: none;
+  cursor: pointer;
+
+  text-shadow: none;
+
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+
+
+/* hover icons */
+.icons-hover {
+  position: relative;
+}
+
+.icons-hover .fa {
+  display: block;
+  position: absolute;
+
+  width: inherit;
+  height: inherit;
+  padding: inherit;
+
+  top: 0;
+  left: 0;
+
+  font-size: 21px;
+  line-height: 28px;
+
+  opacity: 0;
+
+  -webkit-transition: opacity 0.3s ease, -webkit-transform 0.5s cubic-bezier(.42,.66,.14,1.24);
+  -moz-transition: opacity 0.3s ease, -moz-transform 0.5s cubic-bezier(.42,.66,.14,1.24);
+  -o-transition: opacity 0.3s ease, -o-transform 0.5s cubic-bezier(.42,.66,.14,1.24);
+  transition: opacity 0.3s ease, transform 0.5s cubic-bezier(.42,.66,.14,1.24);
+
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+}
+
+.icons-hover .fa:nth-child(2) {
+  opacity: 0;
+
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.icons-hover:hover .fa:nth-child(2) {
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+}
+
+.icons-hover .fa:nth-child(1) {
+  opacity: 1;
+}
+
+.icons-hover:hover .fa:nth-child(1) {
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(0);
+  opacity: 0;
+}
+
