@@ -6,13 +6,17 @@ var renderer, stage, loader;
 var vpx = window.innerWidth;
 var vpy = window.innerHeight;
 var avatars = [];
+
+// 运动变量配置
+var angleX = 0.001;
+var angleY = 0.001;
+var zstep = 1;
+var zflag = 1;
+
 // 场景
-var Scenes = {
-	'tmall': null
-};
+var Scenes = {};
 
 init();
-
 /**
  * 入口
  */
@@ -33,8 +37,13 @@ function init() {
  * 动画主循环
  */
 function mainloop() {
-  renderer.render(stage);
-  requestAnimationFrame(mainloop);
+	// 每个场景的update
+	for(var attr in Scenes) {
+		var scene = Scenes[attr];
+		scene.update();
+	}
+	renderer.render(stage);
+	requestAnimationFrame(mainloop);
 }
 
 /**
@@ -61,7 +70,13 @@ function initScene() {
 			this.initSprites(createTmallSprites());
 		},
 		update: function() {
-
+			var sprites = this.sprites;
+			sprites.forEach(function(sprite) {
+				sprite.$3dPoint.rotateX(angleX);
+				sprite.$3dPoint.rotateY(angleY);
+				sprite.$3dPoint.zpos += zstep;
+				sprite.$3dPoint.transform();
+			});
 		},
 		leave: function() {
 
@@ -70,7 +85,7 @@ function initScene() {
 
 		}
 	});
-	Scene.tmall = tmallScene;
+	Scenes.tmall = tmallScene;
 }
 
 /**
@@ -78,7 +93,7 @@ function initScene() {
  */
 function createTmallSprites() {
 	var sprites = [], a, b, r;
-	for(var i = 0; i < 100; i ++) {
+	for(var i = 0; i < 2000; i ++) {
 		a = Math.PI * 2 * Math.random();
 	    b = Math.PI * 2 * Math.random();
 	    r = range(vpx, vpy);
@@ -108,6 +123,7 @@ function createSprite(config) {
 	sprite.$3dPoint.transform();
 	return sprite;
 }
+
 function range(a, b) {
     return Math.floor(Math.random()*(b-a) + a);
 }
