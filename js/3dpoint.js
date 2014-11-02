@@ -27,7 +27,7 @@ $3DPoint.prototype = {
 	// 将2D坐标转换为3D
 	transform: function () {
 		var screenXY = this.getScreenXY();
-        var scale = this.getScale()
+        var scale = Math.abs(this.getScale())
 		this.sprite.position.x = screenXY.x;
 		this.sprite.position.y = screenXY.y;
         this.sprite.scale.x = scale;

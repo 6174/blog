@@ -5,7 +5,7 @@
 var renderer, stage, loader;
 var vpx = window.innerWidth;
 var vpy = window.innerHeight;
-
+var avatars = [];
 // 场景
 var Scenes = {
 	'tmall': null
@@ -23,7 +23,7 @@ function init() {
 	document.body.appendChild(renderer.view);
 
 	loader.onComplete = function () {
-		createSprite();
+		initScene();
 		mainloop();
 	}
 	loader.load();
@@ -38,47 +38,16 @@ function mainloop() {
 }
 
 /**
- * 画一个sample
- */
-function createSprite() {
-	// sprite with texture
-	var zombieTexture = PIXI.Texture.fromImage('./resources/zombie.png');
-	var zombie = new PIXI.Sprite(zombieTexture);
-
-	// zombie.position.x = window.innerWidth / 2 - 150;
-	// zombie.position.y = window.innerHeight / 2 - 150;
-	zombie.anchor.x = 0.5;
-	zombie.anchor.y = 0.5;
-
-	transformTo3DSprite(zombie, function() {
-		var a = Math.PI * 2 * Math.random();
-	    var b = Math.PI * 2 * Math.random();
-	    var r = range(vpx, vpy);
-
-	    this.xpos = Math.sin(a) * Math.sin(b) * r;
-	    this.ypos = Math.cos(a) * Math.sin(b) * r;
-	    this.zpos = -Math.abs(Math.cos(b) * r);
-	    this.xpos = 0;
-	    this.ypos = 0;
-	    this.zpos = -100;
-	    this.setVanishPoint(vpx/2, vpy/2);
-		this.setCenterPoint(0, 0, 0);
-	});
-	zombie.$3dPoint.transform();
-	window.zombie = zombie;
-	console.log(zombie.position, vpx/4, vpy/4);
-	stage.addChild(zombie);
-}
-
-/**
  * 初始化资源
  */
 function getAssetsToLoader() {
 	var assets = ['./resources/zombie.png'];
-	for (var i = 2; i <= 100; i ++) {
-		assets.push('./resources/avatar/' + i + '.png');
+	var src;
+	for (var i = 2; i <= 10; i ++) {
+		src = './resources/avatar/' + i + '.png';
+		assets.push(src);
+		avatars.push(src);
 	}
-	console.log(assets);
 	return	assets;
 }
 
@@ -86,10 +55,59 @@ function getAssetsToLoader() {
  * 初始化场景
  */
 function initScene() {
-	var tmallScene = new Scene(stage, {});
+	// tmall 场景
+	var tmallScene = new Scene(stage, {
+		init: function () {
+			this.initSprites(createTmallSprites());
+		},
+		update: function() {
+
+		},
+		leave: function() {
+
+		},
+		explode: function () {
+
+		}
+	});
+	Scene.tmall = tmallScene;
 }
 
+/**
+ * 初始化sprites
+ */
+function createTmallSprites() {
+	var sprites = [], a, b, r;
+	for(var i = 0; i < 100; i ++) {
+		a = Math.PI * 2 * Math.random();
+	    b = Math.PI * 2 * Math.random();
+	    r = range(vpx, vpy);
+	  	sprites.push(createSprite({
+			textureSrc: avatars[range(0, avatars.length - 1) << 0],
+			xpos: Math.sin(a) * Math.sin(b) * r,
+			ypos: Math.cos(a) * Math.sin(b) * r,
+			zpos: -Math.abs(Math.cos(b) * r)
+		}));
+	}
+	return sprites;
+}
 
+function createSprite(config) {
+	// sprite with texture
+	var spriteTexture = PIXI.Texture.fromImage(config.textureSrc);
+	var sprite = new PIXI.Sprite(spriteTexture);
+	sprite.anchor.x = 0.5;
+	sprite.anchor.y = 0.5;
+	transformTo3DSprite(sprite, function() {
+	    this.xpos = config.xpos;
+	    this.ypos = config.ypos;
+	    this.zpos = config.zpos;
+	    this.setVanishPoint(vpx/2, vpy/2);
+		this.setCenterPoint(0, 0, 0);
+	});
+	sprite.$3dPoint.transform();
+	return sprite;
+}
 function range(a, b) {
     return Math.floor(Math.random()*(b-a) + a);
 }
