@@ -22,13 +22,18 @@ init();
  */
 function init() {
 	renderer = PIXI.autoDetectRenderer(vpx, vpy);
-	stage = new PIXI.Stage(0x66FF99FF);
+	stage = new PIXI.Stage();
 	loader = new PIXI.AssetLoader(getAssetsToLoader())
 	document.body.appendChild(renderer.view);
 
 	loader.onComplete = function () {
 		initScene();
 		mainloop();
+		renderer.view.addEventListener('mousemove', function (ev) {
+			angleY = (ev.x - vpx) * .00001;
+            angleX = (ev.y - vpy) * .00001;
+            // console.log(angleY, angleX);
+		});
 	}
 	loader.load();
 }
@@ -42,6 +47,13 @@ function mainloop() {
 		var scene = Scenes[attr];
 		scene.update();
 	}
+
+	//  调整z速度
+	if (zstep > 2 || zstep < -2) {
+		zflag *= -1;
+	}
+	zstep += zflag * 0.01;
+
 	renderer.render(stage);
 	requestAnimationFrame(mainloop);
 }
@@ -93,7 +105,7 @@ function initScene() {
  */
 function createTmallSprites() {
 	var sprites = [], a, b, r;
-	for(var i = 0; i < 2000; i ++) {
+	for(var i = 0; i < 1000; i ++) {
 		a = Math.PI * 2 * Math.random();
 	    b = Math.PI * 2 * Math.random();
 	    r = range(vpx, vpy);
@@ -101,27 +113,41 @@ function createTmallSprites() {
 			textureSrc: avatars[range(0, avatars.length - 1) << 0],
 			xpos: Math.sin(a) * Math.sin(b) * r,
 			ypos: Math.cos(a) * Math.sin(b) * r,
-			zpos: -Math.abs(Math.cos(b) * r)
+			zpos: -Math.abs(Math.cos(b) * r),
+			width: range(8, 15)
 		}));
 	}
 	return sprites;
 }
 
 function createSprite(config) {
+	var container = new PIXI.DisplayObjectContainer();
+
 	// sprite with texture
 	var spriteTexture = PIXI.Texture.fromImage(config.textureSrc);
 	var sprite = new PIXI.Sprite(spriteTexture);
 	sprite.anchor.x = 0.5;
 	sprite.anchor.y = 0.5;
-	transformTo3DSprite(sprite, function() {
+
+	// var mask = new PIXI.Graphics();
+	// mask.beginFill();
+	// mask.drawCircle(0, 0, 100);
+	// mask.endFill();
+
+	// container.addChild(mask);
+	// container.mask = mask;
+
+	container.addChild(sprite);
+	transformTo3DSprite(container, function() {
 	    this.xpos = config.xpos;
 	    this.ypos = config.ypos;
 	    this.zpos = config.zpos;
 	    this.setVanishPoint(vpx/2, vpy/2);
 		this.setCenterPoint(0, 0, 0);
 	});
-	sprite.$3dPoint.transform();
-	return sprite;
+
+	container.$3dPoint.transform();
+	return container;
 }
 
 function range(a, b) {
