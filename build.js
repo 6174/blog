@@ -7,9 +7,11 @@ var fs = require('fs-extra');
 var path = require('path');
 
 buildMarkdown();
+
 function buildMarkdown() {
 	var dir = './articles-src';
 	var files = fs.readdirSync(dir);
+	var articleList = [];
 	files.forEach(function(file) {
 		var title = file.split('.')[0];
 		var type = file.split('.')[1];
@@ -21,9 +23,20 @@ function buildMarkdown() {
 			date: data.date,
 			content: marked(data.data)
 		});
+
+		articleList.push({
+			pos: title,
+			title: data.title
+		});
 		
 		fs.writeFile(path.resolve('./articles', title + '.html'), html);
 	});
+
+	var tmpl = fs.readFileSync('./index-tmpl.html', 'utf-8');
+	var html = ejs.render(tmpl, {
+		list: articleList
+	});
+	fs.writeFile('./index.html', html);
 }
 
 function findArgs(data) {

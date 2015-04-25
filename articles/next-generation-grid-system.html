@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../stylesheets/reset.css"/>
+        <link rel="stylesheet" type="text/css" href="../stylesheets/main.css"/>
+        <link rel="stylesheet" type="text/css" href="../stylesheets/article.css"/>
+        <title>6174's blog</title>
+    </head>
+<body>
+   <div class="page-article">
+        <nav class="site-nav" >
+            <div class="ui breadcrumb" >
+                <a href="http://6174.github.io/blog/">archive</a>
+            </div>
+        </nav>
+        <div class="fixcontainer">
+            <article class="article">
+                <header class="post-header">
+                    <h1 class="post-title"> 下一代网格系统</h1>
+                    <section class="post-meta">
+                        <a class="post-author" target="_blank" href="http://www.weibo.com/2254313183/profile"> &lt;6174/&gt;</a>
+                        创建于
+                        <time class="post-date"> 2014-11-30</time>
+                    </section>
+                    <hr/>
+                </header>
+                <section class="post-content">
+                    <h2 id="-">什么是网格系统</h2>
+<p>相信网格系统我就不用多介绍， 网格系统极大的简化我们日常的ui开发。 通常来说，我们所熟悉的前端UI框架都会包括一个基本的网格系统，如<code>bootstrap</code>, <code>foundation</code>, <code>semantic-ui</code>. 当使用这些框架的时候，会发现大量的用到网格。 </p>
+<h2 id="-">为什么需要新的网格系统</h2>
+<p>网格系统在不断的演进， 重最初的<code>960 grid system</code> 到这两年的<code>responsive grid system</code>。但是随着现在碎片化的终端以及ui的复杂化，原先使用<code>float</code>的网格系统在布局上会遇到越来越多的挑战。当我们需要螺丝刀的时候却还在用锤子在工作， 当然不会有什么效率可言。现在的UI布局总结而言</p>
+<ol>
+<li><strong>越来越复杂</strong></li>
+<li><strong>动态化和自适应</strong></li>
+<li><strong>响应式</strong></li>
+</ol>
+<p>这个时候浏览器为了解决这类问题，提供了很多方法：<code>flexbox</code>, <code>media query</code>, <code>em,rem,vw,vh</code>. 这里我们将讨论的时如何使用<code>flexbox</code>来实现新一代的网格系统。这里不会介绍flexbox的用法，而是更多地介绍基于flexbox实现的网格</p>
+<p><strong>下面我会通过案例介绍网格系统用法， 最后提供源码</strong></p>
+<h2 id="-">等分的网格</h2>
+<p><img src="/img/bVkdJJ" alt="图片描述"></p>
+<p><strong>代码:</strong></p>
+<pre><code class="lang-html"> &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"flex-box"</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;<span class="hljs-number">1</span>&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;<span class="hljs-number">2</span>&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;<span class="hljs-number">3</span>&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;<span class="hljs-number">4</span>&lt;/<span class="hljs-keyword">div</span>&gt;
+ &lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p><strong>解释:</strong></p>
+<p>原先的<code>grid&gt;cell</code>是基于百分比和float的， 百分比不可能达到绝对的准确。 但是flexbox则不同，是浏览器分配的等比例宽度， 这里每一个cell的flex为1, 所以会等比例分配. </p>
+<h2 id="-">纵向的等比例分配</h2>
+<p><img src="/img/bVkdJP" alt="图片描述"></p>
+<p><strong>代码:</strong></p>
+<pre><code class="lang-html">&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"flex-box vertical"</span> style=<span class="hljs-string">"height: 200px;"</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;<span class="hljs-number">1</span>&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;<span class="hljs-number">2</span>&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;<span class="hljs-number">3</span>&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;<span class="hljs-number">4</span>&lt;/<span class="hljs-keyword">div</span>&gt;
+&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p><strong>解释：</strong><br>原先的网格系统，如果为了实现纵向的话， 必须要对高度也设置12格的百分比，这样带来的时源文件变很大。 但是对于flexbox来说，只需要设置： <code>flex-direction: column</code>就行。 对于横线能做的事情，纵向都能做，我只能说，这才是我们需要的网格。 </p>
+<h2 id="-">未知的固定尺寸 + 动态的宽度</h2>
+<p><img src="/img/bVkdJR" alt="图片描述"> </p>
+<p>相信上图的这种布局需求是很常见的，但是如果200px这个是不确定的呢？在很多场景下， 我们需要一个文字 + 动态宽度的设计， 这个时候文字的长度不确定，如果要实现这样的需要，可能之有上js了。 </p>
+<p><strong>代码</strong></p>
+<pre><code class="lang-html">&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"flex-box"</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell fixed"</span> style=<span class="hljs-string">"width: 200px;"</span>&gt;<span class="hljs-number">200</span>px&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+&lt;/<span class="hljs-keyword">div</span>&gt;
+
+&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"flex-box"</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell fixed"</span> style=<span class="hljs-string">"width: 100px;"</span>&gt;<span class="hljs-number">100</span>px&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell fixed"</span> style=<span class="hljs-string">"width: 100px"</span>&gt;<span class="hljs-number">100</span>px&lt;/<span class="hljs-keyword">div</span>&gt;
+&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p><strong>解释</strong><br>这里的fixed表示<code>flex: none</code>, 这样flexbox就会动态的计算flex的cell的宽度。 </p>
+<p>这里我们还可以看纵向的这样的需求：</p>
+<p><img src="/img/bVkdJ0" alt="图片描述"> </p>
+<p><strong>代码</strong></p>
+<pre><code class="lang-html">&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"flex-box vertical"</span> style=<span class="hljs-string">"height: 300px;"</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell fixed"</span> style=<span class="hljs-string">"height: 50px"</span>&gt;<span class="hljs-number">50</span>px header&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex content&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell fixed"</span> style=<span class="hljs-string">"height: 50px"</span>&gt;<span class="hljs-number">50</span>px footer&lt;/<span class="hljs-keyword">div</span>&gt;
+&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<h2 id="-div">垂直水平居中的div</h2>
+<p><img src="/img/bVkdJ5" alt="图片描述">  </p>
+<p>这种需求绝对的时主流， 以前的方式通过<code>table-cell</code>, 通过<code>top: 50%...</code> 通过<code>line-height</code>， 都是很别扭的hack方法。 但是现在可以通过flexbox完美支持</p>
+<p><strong>代码</strong></p>
+<pre><code class="lang-html">&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"flex-box align-center justify-center"</span> style=<span class="hljs-string">"height: 200px; border: solid 1px gray;"</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell fixed"</span> style=<span class="hljs-string">"width: 50px;"</span>&gt;<span class="hljs-number">50</span>px&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell fixed"</span> style=<span class="hljs-string">"width: 50px;"</span>&gt;<span class="hljs-number">50</span>px&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell fixed"</span> style=<span class="hljs-string">"width: 50px;"</span>&gt;<span class="hljs-number">50</span>px&lt;/<span class="hljs-keyword">div</span>&gt;
+&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p><strong>解释</strong><br><code>align-center</code> 会让所有的cell垂直居中， <code>justify-center</code>会让所有的cell水平居中。</p>
+<h2 id="col-">col-* 的也可以完美保留</h2>
+<p>以前我们会使用<code>col-1, col-4, col-6</code>等这样的用法， 表示一个cell占用12网格的多少个网格。<br>现在的用法也类似：</p>
+<pre><code class="lang-html">&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"flex-box"</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell cell-6"</span>&gt;<span class="hljs-number">50</span>%&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p>输出结果为：</p>
+<p><img src="/img/bVkdKc" alt="图片描述"> </p>
+<h2 id="-div">动态的等高的div</h2>
+<p><img src="/img/bVkdKm" alt="图片描述"><br> 按照旧的方式来实现的话， 我相信不上js是没有办法解决的。 看看现在的方式能有多简单。 </p>
+<pre><code class="lang-html">&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"flex-box align-stretch"</span> style=<span class="hljs-string">"border: solid 1px gray;"</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;&lt;pre&gt;
+        x
+        x
+        x
+        x
+        x
+        x
+    &lt;/pre&gt;&lt;/<span class="hljs-keyword">div</span>&gt;
+&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p> 只需要加上<code>align-stretch</code> 类就可以实现等高的需求， 这里值得注意的时， 如果自己在cell上设置了高度， 会覆盖flexbox分配的stretch高度。 </p>
+<h2 id="flexbox-align">flexbox 独有的align</h2>
+<p><strong>align items top</strong><br><img src="/img/bVkdKt" alt="图片描述"><br><strong>align items bottom</strong><br><img src="/img/bVkdKu" alt="图片描述"><br><strong>align items center</strong><br><img src="/img/bVkdKv" alt="图片描述"></p>
+<pre><code class="lang-html">&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"flex-box  align-top"</span> style=<span class="hljs-string">"height: 200px; border: solid 1px gray;"</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell cell-6"</span>&gt;<span class="hljs-number">50</span>%&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+&lt;/<span class="hljs-keyword">div</span>&gt;
+
+&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"flex-box  align-bottom"</span> style=<span class="hljs-string">"height: 200px; border: solid 1px gray;"</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell cell-6"</span>&gt;<span class="hljs-number">50</span>%&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+&lt;/<span class="hljs-keyword">div</span>&gt;
+
+&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"flex-box align-center"</span> style=<span class="hljs-string">"height: 200px; border: solid 1px gray;"</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell cell-6"</span>&gt;<span class="hljs-number">50</span>%&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p><strong>align-self</strong><br>cell可以自己控制自身的align<br><img src="/img/bVkdKH" alt="图片描述"></p>
+<pre><code class="lang-html">&lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"flex-box align-center"</span> style=<span class="hljs-string">"height: 200px; border: solid 1px gray;"</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell align-top"</span>&gt;align top&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+    &lt;<span class="hljs-keyword">div</span> <span class="hljs-type">class</span>=<span class="hljs-string">"cell"</span>&gt;flex&lt;/<span class="hljs-keyword">div</span>&gt;
+&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p>其他的cell上， 也可以使用<code>align-bottom</code>, <code>align-center</code>, <code>align-stretch</code>。 </p>
+<h2 id="less-">less 源码</h2>
+<pre><code class="lang-less"> <span class="hljs-comment">/**
+ * flexbox grid system
+ * @author: chenxuejia67@gmail.com
+ * @weibo: sysu_学家
+ */</span>
+<span class="hljs-class">.make-flex-grid</span>(<span class="hljs-number">12</span>);
+<span class="hljs-class">.make-flex-grid</span>(<span class="hljs-variable">@grid-number</span>: <span class="hljs-number">12</span>) {
+    <span class="hljs-class">.flex-box</span> {
+        <span class="hljs-comment">// display flexbox</span>
+        <span class="hljs-attribute">display</span>: flex;
+        <span class="hljs-attribute">flex-wrap</span>: wrap;
+        <span class="hljs-keyword">&amp;</span>, *, *<span class="hljs-pseudo">:after</span>, *<span class="hljs-pseudo">:before</span> {
+            <span class="hljs-attribute">box-sizing</span>: border-box;
+        }
+        <span class="hljs-comment">// flex-direction</span>
+        <span class="hljs-keyword">&amp;</span><span class="hljs-class">.vertical</span> {
+            <span class="hljs-attribute">flex-direction</span>: column;
+            <span class="hljs-keyword">&amp;</span><span class="hljs-class">.reverse</span> {
+                <span class="hljs-attribute">flex-direction</span>: column-reverse;
+            }
+        }
+        <span class="hljs-keyword">&amp;</span><span class="hljs-class">.horizental</span> {
+            <span class="hljs-attribute">flex-direction</span>: row;
+        }
+        <span class="hljs-keyword">&amp;</span><span class="hljs-class">.reverse</span> {
+            <span class="hljs-attribute">flex-direction</span>: row-reverse;
+        }
+
+        <span class="hljs-comment">// justify-content</span>
+        <span class="hljs-keyword">&amp;</span><span class="hljs-class">.justify-start</span> {
+            <span class="hljs-attribute">justify-content</span>: flex-start;
+        }
+        <span class="hljs-keyword">&amp;</span><span class="hljs-class">.justify-end</span> {
+            <span class="hljs-attribute">justify-content</span>: flex-end;
+        }
+        <span class="hljs-keyword">&amp;</span><span class="hljs-class">.justify-center</span> {
+            <span class="hljs-attribute">justify-content</span>: center;
+        }
+        <span class="hljs-keyword">&amp;</span><span class="hljs-class">.justify-between</span> {
+            <span class="hljs-attribute">justify-content</span>: space-between;
+        }
+        <span class="hljs-keyword">&amp;</span><span class="hljs-class">.justify-around</span> {
+            <span class="hljs-attribute">justify-content</span>: space-around;
+        }
+
+        <span class="hljs-comment">// align-items</span>
+        <span class="hljs-keyword">&amp;</span><span class="hljs-class">.align-top</span> {
+            <span class="hljs-attribute">align-items</span>: flex-start;
+        }
+        <span class="hljs-keyword">&amp;</span><span class="hljs-class">.align-bottom</span> {
+            <span class="hljs-attribute">align-items</span>: flex-end;
+        }
+        <span class="hljs-keyword">&amp;</span><span class="hljs-class">.align-center</span> {
+            <span class="hljs-attribute">align-items</span>: center;
+        }
+        <span class="hljs-keyword">&amp;</span><span class="hljs-class">.align-stretch</span> {
+            <span class="hljs-attribute">align-items</span>: stretch;
+            <span class="hljs-class">.cell</span> {
+                <span class="hljs-attribute">height</span>: auto !important;
+            }
+        }
+
+        <span class="hljs-comment">// .cell</span>
+        <span class="hljs-class">.cell</span> {
+            <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;
+            <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">max-width</span>: <span class="hljs-number">100%</span>;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> !important;
+            <span class="hljs-keyword">&amp;</span><span class="hljs-class">.fixed</span> {
+                <span class="hljs-attribute">flex</span>: none !important;
+            }
+            <span class="hljs-keyword">&amp;</span><span class="hljs-class">.align-top</span> {
+                <span class="hljs-attribute">align-self</span>: flex-start;
+            }
+            <span class="hljs-keyword">&amp;</span><span class="hljs-class">.align-bottom</span> {
+                <span class="hljs-attribute">align-self</span>: flex-end;
+            }
+            <span class="hljs-keyword">&amp;</span><span class="hljs-class">.align-center</span> {
+                <span class="hljs-attribute">align-self</span>: center;
+            }
+            <span class="hljs-keyword">&amp;</span><span class="hljs-class">.align-stretch</span> {
+                <span class="hljs-attribute">align-items</span>: stretch;
+                <span class="hljs-attribute">height</span>: auto !important;
+            }
+        }
+
+        <span class="hljs-class">.grid-system</span>();
+    }
+    <span class="hljs-class">.grid-system</span>() {
+        <span class="hljs-class">.loop</span>(<span class="hljs-variable">@grid-number</span>);
+        <span class="hljs-class">.loop</span>(<span class="hljs-variable">@index</span>) <span class="hljs-keyword">when</span> (<span class="hljs-variable">@index</span> &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-class">.cell-</span><span class="hljs-variable">@{index}</span> {
+                <span class="hljs-class">.cell</span>(<span class="hljs-variable">@index</span>);
+            }
+            <span class="hljs-class">.order-</span><span class="hljs-variable">@{index}</span> {
+                <span class="hljs-attribute">order</span>: <span class="hljs-variable">@index</span>;
+            }
+            <span class="hljs-variable">@decreased-index:</span> <span class="hljs-variable">@index</span> - <span class="hljs-number">1</span>;
+            <span class="hljs-class">.loop</span>(<span class="hljs-variable">@decreased-index</span>);
+        }
+    }
+    <span class="hljs-class">.cell</span>(<span class="hljs-variable">@index</span>: <span class="hljs-number">0</span>) {
+        <span class="hljs-variable">@size:</span> <span class="hljs-function">percentage</span>(<span class="hljs-variable">@index</span> / <span class="hljs-variable">@grid-number</span>);
+        <span class="hljs-attribute">flex-basis</span>: <span class="hljs-variable">@size</span>;
+        <span class="hljs-attribute">max-width</span>: <span class="hljs-variable">@size</span>;
+    }
+}
+</code></pre>
+<h2 id="css-">css 代码</h2>
+<pre><code class="lang-css"> <span class="hljs-comment">/**
+ * flexbox grid system
+ * @author: chenxuejia67@gmail.com
+ * @weibo: sysu_学家
+ */</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> -webkit-box</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> -webkit-flex</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> -ms-flexbox</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> flex</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-wrap</span>:<span class="hljs-value"> wrap</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-wrap</span>:<span class="hljs-value"> wrap</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-wrap</span>:<span class="hljs-value"> wrap</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span>,
+<span class="hljs-class">.flex-box</span> *,
+<span class="hljs-class">.flex-box</span> *<span class="hljs-pseudo">:after</span>,
+<span class="hljs-class">.flex-box</span> *<span class="hljs-pseudo">:before</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">box-sizing</span>:<span class="hljs-value"> border-box</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.vertical</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-orient</span>:<span class="hljs-value"> vertical</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-direction</span>:<span class="hljs-value"> normal</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-direction</span>:<span class="hljs-value"> column</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-direction</span>:<span class="hljs-value"> column</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-direction</span>:<span class="hljs-value"> column</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.vertical</span><span class="hljs-class">.reverse</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-orient</span>:<span class="hljs-value"> vertical</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-direction</span>:<span class="hljs-value"> reverse</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-direction</span>:<span class="hljs-value"> column-reverse</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-direction</span>:<span class="hljs-value"> column-reverse</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-direction</span>:<span class="hljs-value"> column-reverse</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.horizental</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-orient</span>:<span class="hljs-value"> horizontal</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-direction</span>:<span class="hljs-value"> normal</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-direction</span>:<span class="hljs-value"> row</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-direction</span>:<span class="hljs-value"> row</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-direction</span>:<span class="hljs-value"> row</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.reverse</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-orient</span>:<span class="hljs-value"> horizontal</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-direction</span>:<span class="hljs-value"> reverse</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-direction</span>:<span class="hljs-value"> row-reverse</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-direction</span>:<span class="hljs-value"> row-reverse</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-direction</span>:<span class="hljs-value"> row-reverse</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.justify-start</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-pack</span>:<span class="hljs-value"> start</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-justify-content</span>:<span class="hljs-value"> flex-start</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-pack</span>:<span class="hljs-value"> start</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">justify-content</span>:<span class="hljs-value"> flex-start</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.justify-end</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-pack</span>:<span class="hljs-value"> end</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-justify-content</span>:<span class="hljs-value"> flex-end</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-pack</span>:<span class="hljs-value"> end</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">justify-content</span>:<span class="hljs-value"> flex-end</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.justify-center</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-pack</span>:<span class="hljs-value"> center</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-justify-content</span>:<span class="hljs-value"> center</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-pack</span>:<span class="hljs-value"> center</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">justify-content</span>:<span class="hljs-value"> center</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.justify-between</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-pack</span>:<span class="hljs-value"> justify</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-justify-content</span>:<span class="hljs-value"> space-between</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-pack</span>:<span class="hljs-value"> justify</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">justify-content</span>:<span class="hljs-value"> space-between</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.justify-around</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-justify-content</span>:<span class="hljs-value"> space-around</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-pack</span>:<span class="hljs-value"> distribute</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">justify-content</span>:<span class="hljs-value"> space-around</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.align-top</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-align</span>:<span class="hljs-value"> start</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-align-items</span>:<span class="hljs-value"> flex-start</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-align</span>:<span class="hljs-value"> start</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">align-items</span>:<span class="hljs-value"> flex-start</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.align-bottom</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-align</span>:<span class="hljs-value"> end</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-align-items</span>:<span class="hljs-value"> flex-end</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-align</span>:<span class="hljs-value"> end</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">align-items</span>:<span class="hljs-value"> flex-end</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.align-center</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-align</span>:<span class="hljs-value"> center</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-align-items</span>:<span class="hljs-value"> center</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-align</span>:<span class="hljs-value"> center</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">align-items</span>:<span class="hljs-value"> center</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.align-stretch</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-align</span>:<span class="hljs-value"> stretch</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-align-items</span>:<span class="hljs-value"> stretch</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-align</span>:<span class="hljs-value"> stretch</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">align-items</span>:<span class="hljs-value"> stretch</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span><span class="hljs-class">.align-stretch</span> <span class="hljs-class">.cell</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> auto <span class="hljs-important">!important</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-flex</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-preferred-size</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">0</span> <span class="hljs-important">!important</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell</span><span class="hljs-class">.fixed</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-flex</span>:<span class="hljs-value"> <span class="hljs-number">0</span> <span class="hljs-important">!important</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex</span>:<span class="hljs-value"> none <span class="hljs-important">!important</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex</span>:<span class="hljs-value"> none <span class="hljs-important">!important</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex</span>:<span class="hljs-value"> none <span class="hljs-important">!important</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell</span><span class="hljs-class">.align-top</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-align-self</span>:<span class="hljs-value"> flex-start</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-item-align</span>:<span class="hljs-value"> start</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">align-self</span>:<span class="hljs-value"> flex-start</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell</span><span class="hljs-class">.align-bottom</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-align-self</span>:<span class="hljs-value"> flex-end</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-item-align</span>:<span class="hljs-value"> end</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">align-self</span>:<span class="hljs-value"> flex-end</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell</span><span class="hljs-class">.align-center</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-align-self</span>:<span class="hljs-value"> center</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-item-align</span>:<span class="hljs-value"> center</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">align-self</span>:<span class="hljs-value"> center</span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell</span><span class="hljs-class">.align-stretch</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-align</span>:<span class="hljs-value"> stretch</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-align-items</span>:<span class="hljs-value"> stretch</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-align</span>:<span class="hljs-value"> stretch</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">align-items</span>:<span class="hljs-value"> stretch</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> auto <span class="hljs-important">!important</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell-12</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-preferred-size</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.order-12</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-ordinal-group</span>:<span class="hljs-value"> <span class="hljs-number">13</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-order</span>:<span class="hljs-value"> <span class="hljs-number">12</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-order</span>:<span class="hljs-value"> <span class="hljs-number">12</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">order</span>:<span class="hljs-value"> <span class="hljs-number">12</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell-11</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">91.66666667%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-preferred-size</span>:<span class="hljs-value"> <span class="hljs-number">91.66666667%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">91.66666667%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">91.66666667%</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.order-11</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-ordinal-group</span>:<span class="hljs-value"> <span class="hljs-number">12</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-order</span>:<span class="hljs-value"> <span class="hljs-number">11</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-order</span>:<span class="hljs-value"> <span class="hljs-number">11</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">order</span>:<span class="hljs-value"> <span class="hljs-number">11</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell-10</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">83.33333333%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-preferred-size</span>:<span class="hljs-value"> <span class="hljs-number">83.33333333%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">83.33333333%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">83.33333333%</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.order-10</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-ordinal-group</span>:<span class="hljs-value"> <span class="hljs-number">11</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-order</span>:<span class="hljs-value"> <span class="hljs-number">10</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-order</span>:<span class="hljs-value"> <span class="hljs-number">10</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">order</span>:<span class="hljs-value"> <span class="hljs-number">10</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell-9</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">75%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-preferred-size</span>:<span class="hljs-value"> <span class="hljs-number">75%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">75%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">75%</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.order-9</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-ordinal-group</span>:<span class="hljs-value"> <span class="hljs-number">10</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-order</span>:<span class="hljs-value"> <span class="hljs-number">9</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-order</span>:<span class="hljs-value"> <span class="hljs-number">9</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">order</span>:<span class="hljs-value"> <span class="hljs-number">9</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell-8</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">66.66666667%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-preferred-size</span>:<span class="hljs-value"> <span class="hljs-number">66.66666667%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">66.66666667%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">66.66666667%</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.order-8</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-ordinal-group</span>:<span class="hljs-value"> <span class="hljs-number">9</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-order</span>:<span class="hljs-value"> <span class="hljs-number">8</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-order</span>:<span class="hljs-value"> <span class="hljs-number">8</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">order</span>:<span class="hljs-value"> <span class="hljs-number">8</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell-7</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">58.33333333%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-preferred-size</span>:<span class="hljs-value"> <span class="hljs-number">58.33333333%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">58.33333333%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">58.33333333%</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.order-7</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-ordinal-group</span>:<span class="hljs-value"> <span class="hljs-number">8</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-order</span>:<span class="hljs-value"> <span class="hljs-number">7</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-order</span>:<span class="hljs-value"> <span class="hljs-number">7</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">order</span>:<span class="hljs-value"> <span class="hljs-number">7</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell-6</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">50%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-preferred-size</span>:<span class="hljs-value"> <span class="hljs-number">50%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">50%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">50%</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.order-6</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-ordinal-group</span>:<span class="hljs-value"> <span class="hljs-number">7</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-order</span>:<span class="hljs-value"> <span class="hljs-number">6</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-order</span>:<span class="hljs-value"> <span class="hljs-number">6</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">order</span>:<span class="hljs-value"> <span class="hljs-number">6</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell-5</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">41.66666667%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-preferred-size</span>:<span class="hljs-value"> <span class="hljs-number">41.66666667%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">41.66666667%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">41.66666667%</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.order-5</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-ordinal-group</span>:<span class="hljs-value"> <span class="hljs-number">6</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-order</span>:<span class="hljs-value"> <span class="hljs-number">5</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-order</span>:<span class="hljs-value"> <span class="hljs-number">5</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">order</span>:<span class="hljs-value"> <span class="hljs-number">5</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell-4</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">33.33333333%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-preferred-size</span>:<span class="hljs-value"> <span class="hljs-number">33.33333333%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">33.33333333%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">33.33333333%</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.order-4</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-ordinal-group</span>:<span class="hljs-value"> <span class="hljs-number">5</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-order</span>:<span class="hljs-value"> <span class="hljs-number">4</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-order</span>:<span class="hljs-value"> <span class="hljs-number">4</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">order</span>:<span class="hljs-value"> <span class="hljs-number">4</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell-3</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">25%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-preferred-size</span>:<span class="hljs-value"> <span class="hljs-number">25%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">25%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">25%</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.order-3</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-ordinal-group</span>:<span class="hljs-value"> <span class="hljs-number">4</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-order</span>:<span class="hljs-value"> <span class="hljs-number">3</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-order</span>:<span class="hljs-value"> <span class="hljs-number">3</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">order</span>:<span class="hljs-value"> <span class="hljs-number">3</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell-2</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">16.66666667%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-preferred-size</span>:<span class="hljs-value"> <span class="hljs-number">16.66666667%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">16.66666667%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">16.66666667%</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.order-2</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-ordinal-group</span>:<span class="hljs-value"> <span class="hljs-number">3</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-order</span>:<span class="hljs-value"> <span class="hljs-number">2</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-order</span>:<span class="hljs-value"> <span class="hljs-number">2</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">order</span>:<span class="hljs-value"> <span class="hljs-number">2</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.cell-1</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">8.33333333%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-preferred-size</span>:<span class="hljs-value"> <span class="hljs-number">8.33333333%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex-basis</span>:<span class="hljs-value"> <span class="hljs-number">8.33333333%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">8.33333333%</span></span></span>;
+}</span>
+
+<span class="hljs-class">.flex-box</span> <span class="hljs-class">.order-1</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-box-ordinal-group</span>:<span class="hljs-value"> <span class="hljs-number">2</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-order</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-flex-order</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">order</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+}</span>
+</code></pre>
+<h2 id="flexbox-media-query-em-rem">flexbox 加上 media-query + em、rem</h2>
+<p> 这是我人为的现代的布局方式，它们之间如何合作又是一个话题了。</p>
+<h2 id="-">关于我</h2>
+<ol>
+<li>微博： sysu_学家</li>
+</ol>
+<blockquote>
+<p>参考<br><a href="http://flexboxgrid.com/">http://flexboxgrid.com/</a><br><a href="http://zurb.com/article/1333/foundation-a-new-grid">http://zurb.com/article/1333/foundation-a-new-grid</a><br><a href="http://philipwalton.github.io/solved-by-flexbox/demos/grids/">http://philipwalton.github.io/solved-by-flexbox/demos/grids/</a></p>
+</blockquote>
+
+                </section>
+                <h4 class="ui horizontal header divider">
+                    &lt;6174/&gt;
+                </h4>
+                <div id="disqus_thread"></div>
+            </article>
+
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES * * */
+                var disqus_shortname = '6174';
+                
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        </div>
+
+   </div>  
+</body>
+</html>
