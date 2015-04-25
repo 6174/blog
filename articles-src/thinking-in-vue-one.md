@@ -1,5 +1,5 @@
 @title: Thinking in vue (一)
-@date: 2015-4-25
+@date: 2014-12-23
 ## ABOUT
 
 这不， 前几天UC分享了他们前端工程化实践，介绍了牛逼的scrat和高端洋气的Vue.js以及AngularJs结合应用。觉得叼得不行，怎么可以这么叼，不用兼容IE family 也行？

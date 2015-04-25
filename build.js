@@ -26,7 +26,8 @@ function buildMarkdown() {
 
 		articleList.push({
 			pos: title,
-			title: data.title
+			title: data.title,
+			date: data.date
 		});
 		
 		fs.writeFile(path.resolve('./articles', title + '.html'), html);
@@ -34,7 +35,7 @@ function buildMarkdown() {
 
 	var tmpl = fs.readFileSync('./index-tmpl.html', 'utf-8');
 	var html = ejs.render(tmpl, {
-		list: articleList
+		list: sortArticleList(articleList)
 	});
 	fs.writeFile('./index.html', html);
 }
@@ -51,4 +52,14 @@ function findArgs(data) {
 		date: date,
 		data: data
 	}
+}
+
+
+function sortArticleList(list) {
+	return list.sort(function(a, b) {
+		var date1 = a.date.trim().split('-');
+		var date2 = b.date.trim().split('-');
+
+		return (date2[0] * 1000 + date2[1] * 100 +  date2[2]) - (date1[0] * 1000 + date1[1] * 100 +  date1[2])
+	});
 }

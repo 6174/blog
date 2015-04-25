@@ -1,5 +1,5 @@
 @title: Thinking in Vue.js （二）
-@date: 2015-4-25
+@date: 2014-12-25
 
 > [上一篇：Thinking in Vue.js （－）](http://6174.github.io/blog/articles/thinking-in-vue-one.html)
 
