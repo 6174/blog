@@ -1,3 +1,6 @@
+@title: React-Native 和 React-Web 融合
+@date: 2015-4-15 
+
 ## 关于
 
 对于react-native在实际中的应用， facebook官方的说法是react-native是为多平台提供共同的开发方式，而不是说一份代码，多处使用。 然后一份代码能够多处使用还是很有意义的，我所了解到的已经在尝试做这件事情的：

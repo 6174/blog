@@ -14,15 +14,28 @@ function buildMarkdown() {
 		var title = file.split('.')[0];
 		var type = file.split('.')[1];
 
-		var data = fs.readFileSync(path.resolve(dir, file), 'utf-8')
+		var data = findArgs(fs.readFileSync(path.resolve(dir, file), 'utf-8'));
 		var tmpl = fs.readFileSync('./article-tmpl.html', 'utf-8');
-		var article = marked(data);
 		var html = ejs.render(tmpl, {
-			title: title,
-			date: '2015-4-28',
-			content: article
+			title: data.title,
+			date: data.date,
+			content: marked(data.data)
 		});
 		
 		fs.writeFile(path.resolve('./articles', title + '.html'), html);
 	});
+}
+
+function findArgs(data) {
+	var titleReg = /^@title:(.*)$/m;
+	var dateReg = /^@date:(.*)$/m;
+	var title = data.match(titleReg)[1];
+	var date = data.match(dateReg)[1];
+	data = data.replace(titleReg, '');
+	data = data.replace(dateReg, '');
+	return {
+		title: title,
+		date: date,
+		data: data
+	}
 }
