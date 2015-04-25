@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../stylesheets/reset.css"/>
+        <link rel="stylesheet" type="text/css" href="../stylesheets/main.css"/>
+        <link rel="stylesheet" type="text/css" href="../stylesheets/article.css"/>
+        <title>6174's blog</title>
+    </head>
+<body>
+   <div class="page-article">
+        <nav class="site-nav" >
+            <div class="ui breadcrumb" >
+                <a href="./archive">archive</a>
+            </div>
+        </nav>
+        <div class="fixcontainer">
+            <article class="article">
+                <header class="post-header">
+                    <h1 class="post-title"><%= title %></h1>
+                    <section class="post-meta">
+                        <span class="post-author">6174</span>
+                        创建于
+                        <time class="post-date"><%= date %></time>
+                    </section>
+                    <hr/>
+                </header>
+                <section class="post-content">
+                    <%- content %>
+                </section>
+                <h4 class="ui horizontal header divider">
+                    <i class="bar write icon"></i>
+                </h4>
+            </article>
+        </div>
+   </div>  
+</body>
+</html>
