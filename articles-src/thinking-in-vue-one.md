@@ -184,4 +184,4 @@ Mother egg，脑补了一下， UC的哥哥姐姐们只关心UC浏览器， 呵�
 **请听下回分解**
 --------------------------------------------窝是感情的分割线, hehehehe------------------------------------------
 
-> [Thinking in Vue.js （二）](http://www.atatech.org/articles/21338)
+> [Thinking in Vue.js （二）](http://6174.github.io/blog/articles/thinking-in-vue-two.html)
