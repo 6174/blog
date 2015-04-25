@@ -22,12 +22,12 @@
 **代码:**
 
 ```html 
- <div class="flex-box">
-    <div class="cell">1</div>
-    <div class="cell">2</div>
-    <div class="cell">3</div>
-    <div class="cell">4</div>
- </div>
+<div class="mui-flex">
+  <div class="cell">1</div>
+  <div class="cell">2</div>
+  <div class="cell">3</div>
+  <div class="cell">4</div>
+</div>
 ```
 **解释:**
 
@@ -39,7 +39,7 @@
 
 **代码:**
 ```html 
-<div class="flex-box vertical" style="height: 200px;">
+<div class="mui-flex vertical" style="height: 200px;">
     <div class="cell">1</div>
     <div class="cell">2</div>
     <div class="cell">3</div>
@@ -59,17 +59,17 @@
 **代码**
 
 ```html 
-<div class="flex-box">
-    <div class="cell fixed" style="width: 200px;">200px</div>
-    <div class="cell">flex</div>
-    <div class="cell">flex</div>
-    <div class="cell">flex</div>
+<div class="mui-flex">
+  <div class="cell fixed" style="width: 200px;">200px</div>
+  <div class="cell">flex</div>
+  <div class="cell">flex</div>
+  <div class="cell">flex</div>
 </div>
 
-<div class="flex-box">
-    <div class="cell fixed" style="width: 100px;">100px</div>
-    <div class="cell">flex</div>
-    <div class="cell fixed" style="width: 100px">100px</div>
+<div class="mui-flex">
+  <div class="cell fixed" style="width: 100px;">100px</div>
+  <div class="cell">flex</div>
+  <div class="cell fixed" style="width: 100px">100px</div>
 </div>
 ```
 
@@ -82,7 +82,7 @@
 
 **代码**
 ```html 
-<div class="flex-box vertical" style="height: 300px;">
+<div class="mui-flex vertical" style="height: 300px;">
     <div class="cell fixed" style="height: 50px">50px header</div>
     <div class="cell">flex content</div>
     <div class="cell fixed" style="height: 50px">50px footer</div>
@@ -98,7 +98,7 @@
 
 **代码**
 ```html
-<div class="flex-box align-center justify-center" style="height: 200px; border: solid 1px gray;">
+<div class="mui-flex align-center justify-center" style="height: 200px; border: solid 1px gray;">
     <div class="cell fixed" style="width: 50px;">50px</div>
     <div class="cell fixed" style="width: 50px;">50px</div>
     <div class="cell fixed" style="width: 50px;">50px</div>
@@ -115,7 +115,7 @@
 现在的用法也类似：
 
 ```html 
-<div class="flex-box">
+<div class="mui-flex">
     <div class="cell cell-6">50%</div>
     <div class="cell">flex</div>
     <div class="cell">flex</div>
@@ -131,7 +131,7 @@
  按照旧的方式来实现的话， 我相信不上js是没有办法解决的。 看看现在的方式能有多简单。 
 
 ```html 
-<div class="flex-box align-stretch" style="border: solid 1px gray;">
+<div class="mui-flex align-stretch" style="border: solid 1px gray;">
     <div class="cell">flex</div>
     <div class="cell">flex</div>
     <div class="cell"><pre>
@@ -156,19 +156,19 @@
 ![图片描述][10]
 
 ```html
-<div class="flex-box  align-top" style="height: 200px; border: solid 1px gray;">
+<div class="mui-flex  align-start" style="height: 200px; border: solid 1px gray;">
     <div class="cell cell-6">50%</div>
     <div class="cell">flex</div>
     <div class="cell">flex</div>
 </div>
 
-<div class="flex-box  align-bottom" style="height: 200px; border: solid 1px gray;">
+<div class="mui-flex  align-end" style="height: 200px; border: solid 1px gray;">
     <div class="cell cell-6">50%</div>
     <div class="cell">flex</div>
     <div class="cell">flex</div>
 </div>
 
-<div class="flex-box align-center" style="height: 200px; border: solid 1px gray;">
+<div class="mui-flex align-center" style="height: 200px; border: solid 1px gray;">
     <div class="cell cell-6">50%</div>
     <div class="cell">flex</div>
     <div class="cell">flex</div>
@@ -179,487 +179,49 @@
 cell可以自己控制自身的align
 ![图片描述][11]
 ```html 
-<div class="flex-box align-center" style="height: 200px; border: solid 1px gray;">
-    <div class="cell align-top">align top</div>
+<div class="mui-flex align-center" style="height: 200px; border: solid 1px gray;">
+    <div class="cell align-start">align top</div>
     <div class="cell">flex</div>
     <div class="cell">flex</div>
 </div>
 ```
-其他的cell上， 也可以使用`align-bottom`, `align-center`, `align-stretch`。 
+其他的cell上， 也可以使用`align-end`, `align-center`, `align-stretch`。 
 
+## 不等比例的适应
 
-## less 源码
-```less
- /**
- * flexbox grid system
- * @author: chenxuejia67@gmail.com
- * @weibo: sysu_学家
- */
-.make-flex-grid(12);
-.make-flex-grid(@grid-number: 12) {
-    .flex-box {
-        // display flexbox
-        display: flex;
-        flex-wrap: wrap;
-        &, *, *:after, *:before {
-            box-sizing: border-box;
-        }
-        // flex-direction
-        &.vertical {
-            flex-direction: column;
-            &.reverse {
-                flex-direction: column-reverse;
-            }
-        }
-        &.horizental {
-            flex-direction: row;
-        }
-        &.reverse {
-            flex-direction: row-reverse;
-        }
+![][16] 
 
-        // justify-content
-        &.justify-start {
-            justify-content: flex-start;
-        }
-        &.justify-end {
-            justify-content: flex-end;
-        }
-        &.justify-center {
-            justify-content: center;
-        }
-        &.justify-between {
-            justify-content: space-between;
-        }
-        &.justify-around {
-            justify-content: space-around;
-        }
-
-        // align-items
-        &.align-top {
-            align-items: flex-start;
-        }
-        &.align-bottom {
-            align-items: flex-end;
-        }
-        &.align-center {
-            align-items: center;
-        }
-        &.align-stretch {
-            align-items: stretch;
-            .cell {
-                height: auto !important;
-            }
-        }
-        
-        // .cell
-        .cell {
-            flex: 1;
-            flex-basis: 0;
-            max-width: 100%;
-            padding: 0 !important;
-            &.fixed {
-                flex: none !important;
-            }
-            &.align-top {
-                align-self: flex-start;
-            }
-            &.align-bottom {
-                align-self: flex-end;
-            }
-            &.align-center {
-                align-self: center;
-            }
-            &.align-stretch {
-                align-items: stretch;
-                height: auto !important;
-            }
-        }
-
-        .grid-system();
-    }
-    .grid-system() {
-        .loop(@grid-number);
-        .loop(@index) when (@index > 0) {
-            .cell-@{index} {
-                .cell(@index);
-            }
-            .order-@{index} {
-                order: @index;
-            }
-            @decreased-index: @index - 1;
-            .loop(@decreased-index);
-        }
-    }
-    .cell(@index: 0) {
-        @size: percentage(@index / @grid-number);
-        flex-basis: @size;
-        max-width: @size;
-    }
-}
+解决方案只需要这样：
+```html 
+<div class="mui-flex display">
+  <div class="cell" style="flex: 150;">flex150</div>
+  <div class="cell" style="flex: 105;">flex105</div>
+  <div class="cell" style="flex: 120;">flex120</div>
+</div>
 ```
- 
-## css 代码
 
-```css 
- /**
- * flexbox grid system
- * @author: chenxuejia67@gmail.com
- * @weibo: sysu_学家
- */
+效果：
 
-.flex-box {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
+![][15]
+## 不能在cell上面加上padding， 否则宽度难控制
+![][14]
 
-.flex-box,
-.flex-box *,
-.flex-box *:after,
-.flex-box *:before {
-  box-sizing: border-box;
-}
+## 源码
+http://gitlab.alibaba-inc.com/mui/flex/tree/master
 
-.flex-box.vertical {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.flex-box.vertical.reverse {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: reverse;
-  -webkit-flex-direction: column-reverse;
-  -ms-flex-direction: column-reverse;
-  flex-direction: column-reverse;
-}
-
-.flex-box.horizental {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.flex-box.reverse {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: reverse;
-  -webkit-flex-direction: row-reverse;
-  -ms-flex-direction: row-reverse;
-  flex-direction: row-reverse;
-}
-
-.flex-box.justify-start {
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-}
-
-.flex-box.justify-end {
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.flex-box.justify-center {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.flex-box.justify-between {
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-}
-
-.flex-box.justify-around {
-  -webkit-justify-content: space-around;
-  -ms-flex-pack: distribute;
-  justify-content: space-around;
-}
-
-.flex-box.align-top {
-  -webkit-box-align: start;
-  -webkit-align-items: flex-start;
-  -ms-flex-align: start;
-  align-items: flex-start;
-}
-
-.flex-box.align-bottom {
-  -webkit-box-align: end;
-  -webkit-align-items: flex-end;
-  -ms-flex-align: end;
-  align-items: flex-end;
-}
-
-.flex-box.align-center {
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.flex-box.align-stretch {
-  -webkit-box-align: stretch;
-  -webkit-align-items: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-}
-
-.flex-box.align-stretch .cell {
-  height: auto !important;
-}
-
-.flex-box .cell {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  -webkit-flex-basis: 0;
-  -ms-flex-preferred-size: 0;
-  flex-basis: 0;
-  max-width: 100%;
-  padding: 0 !important;
-}
-
-.flex-box .cell.fixed {
-  -webkit-box-flex: 0 !important;
-  -webkit-flex: none !important;
-  -ms-flex: none !important;
-  flex: none !important;
-}
-
-.flex-box .cell.align-top {
-  -webkit-align-self: flex-start;
-  -ms-flex-item-align: start;
-  align-self: flex-start;
-}
-
-.flex-box .cell.align-bottom {
-  -webkit-align-self: flex-end;
-  -ms-flex-item-align: end;
-  align-self: flex-end;
-}
-
-.flex-box .cell.align-center {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-}
-
-.flex-box .cell.align-stretch {
-  -webkit-box-align: stretch;
-  -webkit-align-items: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  height: auto !important;
-}
-
-.flex-box .cell-12 {
-  -webkit-flex-basis: 100%;
-  -ms-flex-preferred-size: 100%;
-  flex-basis: 100%;
-  max-width: 100%;
-}
-
-.flex-box .order-12 {
-  -webkit-box-ordinal-group: 13;
-  -webkit-order: 12;
-  -ms-flex-order: 12;
-  order: 12;
-}
-
-.flex-box .cell-11 {
-  -webkit-flex-basis: 91.66666667%;
-  -ms-flex-preferred-size: 91.66666667%;
-  flex-basis: 91.66666667%;
-  max-width: 91.66666667%;
-}
-
-.flex-box .order-11 {
-  -webkit-box-ordinal-group: 12;
-  -webkit-order: 11;
-  -ms-flex-order: 11;
-  order: 11;
-}
-
-.flex-box .cell-10 {
-  -webkit-flex-basis: 83.33333333%;
-  -ms-flex-preferred-size: 83.33333333%;
-  flex-basis: 83.33333333%;
-  max-width: 83.33333333%;
-}
-
-.flex-box .order-10 {
-  -webkit-box-ordinal-group: 11;
-  -webkit-order: 10;
-  -ms-flex-order: 10;
-  order: 10;
-}
-
-.flex-box .cell-9 {
-  -webkit-flex-basis: 75%;
-  -ms-flex-preferred-size: 75%;
-  flex-basis: 75%;
-  max-width: 75%;
-}
-
-.flex-box .order-9 {
-  -webkit-box-ordinal-group: 10;
-  -webkit-order: 9;
-  -ms-flex-order: 9;
-  order: 9;
-}
-
-.flex-box .cell-8 {
-  -webkit-flex-basis: 66.66666667%;
-  -ms-flex-preferred-size: 66.66666667%;
-  flex-basis: 66.66666667%;
-  max-width: 66.66666667%;
-}
-
-.flex-box .order-8 {
-  -webkit-box-ordinal-group: 9;
-  -webkit-order: 8;
-  -ms-flex-order: 8;
-  order: 8;
-}
-
-.flex-box .cell-7 {
-  -webkit-flex-basis: 58.33333333%;
-  -ms-flex-preferred-size: 58.33333333%;
-  flex-basis: 58.33333333%;
-  max-width: 58.33333333%;
-}
-
-.flex-box .order-7 {
-  -webkit-box-ordinal-group: 8;
-  -webkit-order: 7;
-  -ms-flex-order: 7;
-  order: 7;
-}
-
-.flex-box .cell-6 {
-  -webkit-flex-basis: 50%;
-  -ms-flex-preferred-size: 50%;
-  flex-basis: 50%;
-  max-width: 50%;
-}
-
-.flex-box .order-6 {
-  -webkit-box-ordinal-group: 7;
-  -webkit-order: 6;
-  -ms-flex-order: 6;
-  order: 6;
-}
-
-.flex-box .cell-5 {
-  -webkit-flex-basis: 41.66666667%;
-  -ms-flex-preferred-size: 41.66666667%;
-  flex-basis: 41.66666667%;
-  max-width: 41.66666667%;
-}
-
-.flex-box .order-5 {
-  -webkit-box-ordinal-group: 6;
-  -webkit-order: 5;
-  -ms-flex-order: 5;
-  order: 5;
-}
-
-.flex-box .cell-4 {
-  -webkit-flex-basis: 33.33333333%;
-  -ms-flex-preferred-size: 33.33333333%;
-  flex-basis: 33.33333333%;
-  max-width: 33.33333333%;
-}
-
-.flex-box .order-4 {
-  -webkit-box-ordinal-group: 5;
-  -webkit-order: 4;
-  -ms-flex-order: 4;
-  order: 4;
-}
-
-.flex-box .cell-3 {
-  -webkit-flex-basis: 25%;
-  -ms-flex-preferred-size: 25%;
-  flex-basis: 25%;
-  max-width: 25%;
-}
-
-.flex-box .order-3 {
-  -webkit-box-ordinal-group: 4;
-  -webkit-order: 3;
-  -ms-flex-order: 3;
-  order: 3;
-}
-
-.flex-box .cell-2 {
-  -webkit-flex-basis: 16.66666667%;
-  -ms-flex-preferred-size: 16.66666667%;
-  flex-basis: 16.66666667%;
-  max-width: 16.66666667%;
-}
-
-.flex-box .order-2 {
-  -webkit-box-ordinal-group: 3;
-  -webkit-order: 2;
-  -ms-flex-order: 2;
-  order: 2;
-}
-
-.flex-box .cell-1 {
-  -webkit-flex-basis: 8.33333333%;
-  -ms-flex-preferred-size: 8.33333333%;
-  flex-basis: 8.33333333%;
-  max-width: 8.33333333%;
-}
-
-.flex-box .order-1 {
-  -webkit-box-ordinal-group: 2;
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-}
-```
- 
-
-## flexbox 加上 media-query + em、rem 
-
- 这是我人为的现代的布局方式，它们之间如何合作又是一个话题了。
-
-
-## 关于我
-1. 微博： sysu_学家
-
-> 参考
-> http://flexboxgrid.com/
-> http://zurb.com/article/1333/foundation-a-new-grid
-> http://philipwalton.github.io/solved-by-flexbox/demos/grids/
-
-
-  [1]: /img/bVkdJJ
-  [2]: /img/bVkdJP
-  [3]: /img/bVkdJR
-  [4]: /img/bVkdJ0
-  [5]: /img/bVkdJ5
-  [6]: /img/bVkdKc
-  [7]: /img/bVkdKm
-  [8]: /img/bVkdKt
-  [9]: /img/bVkdKu
-  [10]: /img/bVkdKv
-  [11]: /img/bVkdKH
+  [1]: http://gtms04.alicdn.com/tps/i4/TB1U5KDGVXXXXXvXXXXibE53FXX-708-64.png
+  [2]: http://gtms04.alicdn.com/tps/i4/TB1kVuBGVXXXXcJXXXXwpp1NFXX-715-205.png
+  [3]: http://gtms01.alicdn.com/tps/i1/TB1UkuxGVXXXXbBXpXXit4KKFXX-710-125.png
+  [4]: http://gtms02.alicdn.com/tps/i2/TB1wYGkGVXXXXXfaXXXx1OQJpXX-705-305.png
+  [5]: http://gtms03.alicdn.com/tps/i3/TB1WhuBGVXXXXbUXXXXm4VtUVXX-733-218.png
+  [6]: http://gtms03.alicdn.com/tps/i3/TB1bMymGVXXXXbLXVXXBPQ53FXX-708-66.png
+  [7]: http://gtms01.alicdn.com/tps/i1/TB1205uGVXXXXa0XFXXU6s0SVXX-730-408.png
+  [8]: http://gtms02.alicdn.com/tps/i2/TB1wyKvGVXXXXXlXFXXsphsUVXX-733-209.png
+  [9]: http://gtms03.alicdn.com/tps/i3/TB1qVirGVXXXXXiXVXXSdGdTFXX-728-215.png
+  [10]: http://gtms04.alicdn.com/tps/i4/TB1NmuoGVXXXXbvXVXXiRO0SpXX-726-215.png
+  [11]: http://gtms01.alicdn.com/tps/i1/TB1Kt1vGVXXXXX0XFXXm4VtUVXX-733-218.png
+  [12]: http://gtms04.alicdn.com/tps/i4/TB1kVuBGVXXXXcJXXXXwpp1NFXX-715-205.png
+  [13]: http://gtms04.alicdn.com/tps/i4/TB1PRCnGVXXXXchXVXXTR.JVVXX-735-224.png
+  [14]: http://gtms03.alicdn.com/tps/i3/TB1_CioGVXXXXaoXVXXn4JkWXXX-735-528.png
+  [15]: http://gtms03.alicdn.com/tps/i3/TB1ffmEGVXXXXb2XXXX7HJW5FXX-741-67.png
+  [16]: http://gtms04.alicdn.com/tps/i4/TB16nWvGVXXXXXOXVXXJHdbFXXX-772-168.png
